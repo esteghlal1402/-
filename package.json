@@ -1,0 +1,31 @@
+{
+  "name": "advanced-multipurpose-bot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ربات همه‌کاره پیشرفته با هسته افزونه‌پذیر، CLI و REST",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "npm run build && node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "server": "npm run build && node dist/index.js server",
+    "test": "echo 'No tests yet'"
+  },
+  "keywords": ["bot", "cli", "rest", "plugins", "typescript"],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "openai": "^4.64.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.7.5",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.3"
+  }
+}
