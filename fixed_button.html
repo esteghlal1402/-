@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Button Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            min-height: 50px;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        .info {
+            color: #007bff;
+            font-weight: bold;
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ Fixed Button Demo</h1>
+        <p>This page shows the corrected JavaScript code with all bugs fixed.</p>
+        
+        <h2>Working Buttons:</h2>
+        
+        <h3>1. Basic Button with Event Listener</h3>
+        <button id="basicBtn">Click me!</button>
+        
+        <h3>2. Button with Counter</h3>
+        <button id="counterBtn">Click count: <span id="counter">0</span></button>
+        
+        <h3>3. Button with Toggle Functionality</h3>
+        <button id="toggleBtn">Toggle me!</button>
+        
+        <h3>4. Button with Form Validation</h3>
+        <input type="text" id="textInput" placeholder="Enter some text">
+        <button id="validateBtn">Validate Input</button>
+        
+        <h3>5. Button with Async Operation</h3>
+        <button id="asyncBtn">Simulate Async Operation</button>
+        
+        <h3>6. Button with Error Handling</h3>
+        <button id="errorBtn">Test Error Handling</button>
+        
+        <div id="result">
+            <p class="info">Click the buttons above to test the fixed functionality!</p>
+        </div>
+        
+        <h2>Key Fixes Applied:</h2>
+        <div class="code-block">
+<pre>// ✅ FIXED CODE - All bugs resolved:
+
+// 1. Wait for DOM to be ready
+document.addEventListener('DOMContentLoaded', function() {
+    // All event listeners are added here
+});
+
+// 2. Proper error handling
+try {
+    // Code that might fail
+} catch (error) {
+    console.error('Error:', error);
+    showResult('An error occurred: ' + error.message, 'error');
+}
+
+// 3. Check if elements exist before adding listeners
+const element = document.getElementById('myButton');
+if (element) {
+    element.addEventListener('click', handleClick);
+}
+
+// 4. Use proper function declarations
+function handleClick() {
+    // Function is properly defined
+}
+
+// 5. Manage scope correctly
+(function() {
+    var privateVariable = 'This is private';
+    // Code here has access to privateVariable
+})();</pre>
+        </div>
+    </div>
+
+    <script>
+        // ✅ FIXED JAVASCRIPT CODE
+        
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing buttons...');
+            
+            // Initialize all buttons
+            initializeButtons();
+        });
+        
+        function initializeButtons() {
+            // Button 1: Basic functionality
+            const basicBtn = document.getElementById('basicBtn');
+            if (basicBtn) {
+                basicBtn.addEventListener('click', function() {
+                    showResult('Basic button clicked! Everything works!', 'success');
+                });
+            }
+            
+            // Button 2: Counter functionality
+            const counterBtn = document.getElementById('counterBtn');
+            const counterSpan = document.getElementById('counter');
+            let count = 0;
+            
+            if (counterBtn && counterSpan) {
+                counterBtn.addEventListener('click', function() {
+                    count++;
+                    counterSpan.textContent = count;
+                    showResult(`Counter updated to: ${count}`, 'info');
+                });
+            }
+            
+            // Button 3: Toggle functionality
+            const toggleBtn = document.getElementById('toggleBtn');
+            let isToggled = false;
+            
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function() {
+                    isToggled = !isToggled;
+                    this.textContent = isToggled ? 'Untoggle me!' : 'Toggle me!';
+                    this.style.backgroundColor = isToggled ? '#28a745' : '#007bff';
+                    showResult(`Button toggled: ${isToggled}`, 'info');
+                });
+            }
+            
+            // Button 4: Form validation
+            const validateBtn = document.getElementById('validateBtn');
+            const textInput = document.getElementById('textInput');
+            
+            if (validateBtn && textInput) {
+                validateBtn.addEventListener('click', function() {
+                    const value = textInput.value.trim();
+                    if (value.length === 0) {
+                        showResult('Please enter some text!', 'error');
+                        textInput.focus();
+                    } else if (value.length < 3) {
+                        showResult('Text must be at least 3 characters long!', 'error');
+                        textInput.focus();
+                    } else {
+                        showResult(`Valid input: "${value}"`, 'success');
+                    }
+                });
+            }
+            
+            // Button 5: Async operation simulation
+            const asyncBtn = document.getElementById('asyncBtn');
+            if (asyncBtn) {
+                asyncBtn.addEventListener('click', async function() {
+                    // Disable button during operation
+                    this.disabled = true;
+                    this.textContent = 'Processing...';
+                    
+                    try {
+                        // Simulate async operation
+                        await new Promise(resolve => setTimeout(resolve, 2000));
+                        showResult('Async operation completed successfully!', 'success');
+                    } catch (error) {
+                        showResult('Async operation failed: ' + error.message, 'error');
+                    } finally {
+                        // Re-enable button
+                        this.disabled = false;
+                        this.textContent = 'Simulate Async Operation';
+                    }
+                });
+            }
+            
+            // Button 6: Error handling demonstration
+            const errorBtn = document.getElementById('errorBtn');
+            if (errorBtn) {
+                errorBtn.addEventListener('click', function() {
+                    try {
+                        // Simulate an error
+                        throw new Error('This is a test error to demonstrate error handling');
+                    } catch (error) {
+                        console.error('Caught error:', error);
+                        showResult('Error caught and handled: ' + error.message, 'error');
+                    }
+                });
+            }
+        }
+        
+        // Utility function to show results with proper error handling
+        function showResult(message, type) {
+            try {
+                const resultDiv = document.getElementById('result');
+                if (resultDiv) {
+                    resultDiv.innerHTML = `<p class="${type}">${message}</p>`;
+                } else {
+                    console.error('Result div not found');
+                }
+            } catch (error) {
+                console.error('Error showing result:', error);
+            }
+        }
+        
+        // Global error handler
+        window.addEventListener('error', function(e) {
+            console.error('Global error caught:', e.error);
+            showResult(`Global error: ${e.error.message}`, 'error');
+        });
+        
+        // Unhandled promise rejection handler
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('Unhandled promise rejection:', e.reason);
+            showResult(`Promise rejection: ${e.reason}`, 'error');
+            e.preventDefault(); // Prevent the default browser behavior
+        });
+        
+        // Console log for debugging
+        console.log('JavaScript loaded successfully!');
+    </script>
+</body>
+</html>

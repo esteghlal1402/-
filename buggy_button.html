@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buggy Button Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            min-height: 50px;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Buggy Button Demo</h1>
+        <p>This page demonstrates common JavaScript button bugs and their fixes.</p>
+        
+        <h2>Bug Examples:</h2>
+        
+        <!-- Bug 1: Missing event listener -->
+        <h3>1. Button with no event listener</h3>
+        <button id="noListenerBtn">Click me (no listener)</button>
+        
+        <!-- Bug 2: Wrong element ID -->
+        <h3>2. Button with wrong ID reference</h3>
+        <button id="wrongIdBtn">Click me (wrong ID)</button>
+        
+        <!-- Bug 3: Function not defined -->
+        <h3>3. Button calling undefined function</h3>
+        <button id="undefinedFuncBtn" onclick="undefinedFunction()">Click me (undefined function)</button>
+        
+        <!-- Bug 4: Event listener added before DOM is ready -->
+        <h3>4. Button with premature event listener</h3>
+        <button id="prematureBtn">Click me (premature listener)</button>
+        
+        <!-- Bug 5: Scope issue -->
+        <h3>5. Button with scope issue</h3>
+        <button id="scopeBtn">Click me (scope issue)</button>
+        
+        <div id="result">
+            <p>Click the buttons above to see the bugs in action!</p>
+        </div>
+        
+        <h2>Fixed Buttons:</h2>
+        
+        <!-- Fixed buttons -->
+        <h3>Fixed Button 1: Proper event listener</h3>
+        <button id="fixedBtn1">Click me (fixed!)</button>
+        
+        <h3>Fixed Button 2: Correct function call</h3>
+        <button id="fixedBtn2">Click me (also fixed!)</button>
+    </div>
+
+    <script>
+        // BUGGY CODE - These are the problems:
+        
+        // Bug 1: No event listener attached
+        // (This button will do nothing when clicked)
+        
+        // Bug 2: Wrong element ID
+        document.getElementById('wrongId').addEventListener('click', function() {
+            // This will throw an error because 'wrongId' doesn't exist
+            showResult('Wrong ID button clicked!', 'error');
+        });
+        
+        // Bug 3: Function not defined
+        // The onclick="undefinedFunction()" will throw an error
+        
+        // Bug 4: Event listener added before DOM is ready
+        // This might work sometimes but is unreliable
+        document.getElementById('prematureBtn').addEventListener('click', function() {
+            showResult('Premature button clicked!', 'success');
+        });
+        
+        // Bug 5: Scope issue
+        var message = "Hello from scope!";
+        document.getElementById('scopeBtn').addEventListener('click', function() {
+            // This will work, but if the variable is in a different scope, it won't
+            showResult(message, 'success');
+        });
+        
+        // FIXED CODE - These are the solutions:
+        
+        // Fix 1: Add proper event listener
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('noListenerBtn').addEventListener('click', function() {
+                showResult('No listener button clicked! (Now it works!)', 'success');
+            });
+        });
+        
+        // Fix 2: Correct element ID
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('wrongIdBtn').addEventListener('click', function() {
+                showResult('Wrong ID button clicked! (Now with correct ID!)', 'success');
+            });
+        });
+        
+        // Fix 3: Define the function
+        function undefinedFunction() {
+            showResult('Undefined function button clicked! (Function now defined!)', 'success');
+        }
+        
+        // Fix 4: Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('prematureBtn').addEventListener('click', function() {
+                showResult('Premature button clicked! (Now properly timed!)', 'success');
+            });
+        });
+        
+        // Fix 5: Proper scope management
+        document.addEventListener('DOMContentLoaded', function() {
+            var scopedMessage = "Hello from proper scope!";
+            document.getElementById('scopeBtn').addEventListener('click', function() {
+                showResult(scopedMessage, 'success');
+            });
+        });
+        
+        // Fixed buttons with proper implementation
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('fixedBtn1').addEventListener('click', function() {
+                showResult('Fixed button 1 clicked! Everything works perfectly!', 'success');
+            });
+            
+            document.getElementById('fixedBtn2').addEventListener('click', function() {
+                showResult('Fixed button 2 clicked! No bugs here!', 'success');
+            });
+        });
+        
+        // Utility function to show results
+        function showResult(message, type) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<p class="${type}">${message}</p>`;
+        }
+        
+        // Error handling for debugging
+        window.addEventListener('error', function(e) {
+            console.error('JavaScript Error:', e.error);
+            showResult(`Error: ${e.error.message}`, 'error');
+        });
+    </script>
+</body>
+</html>
